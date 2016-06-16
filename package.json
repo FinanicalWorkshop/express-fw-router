@@ -1,0 +1,30 @@
+{
+  "author": {
+      "email": "w.del@qq.com",
+      "name": "delong"
+  },
+  "bugs": {
+    "url": "https://github.com/FinanicalWorkshop/express-fw-router/issues"
+  },
+  "description": "express body-parser json middleware error handler",
+  "homepage": "https://github.com/FinanicalWorkshop/express-fw-router#readme",
+  "keywords": [
+    "express",
+    "fw-router"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "express-fw-router",
+  "dependencies": {
+
+    "router": "~1.1.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FinanicalWorkshop/express-fw-router"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.0.1"
+}
