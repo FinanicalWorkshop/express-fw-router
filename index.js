@@ -1,20 +1,35 @@
-var Router = require('Router');
+var express = require('express');
+const METHODS = require('methods');
 
-function validate(cfg) {
+
+function FwRouter() {
+    this.router = express.Router();
+    this.validate = {};
+    this.childRouter = [];
+}
+
+function generateValidate(cfg) {
+
     return function (req, res, next) {
-        var legal = false;
-
-        legal ? next() : res.status(200).json({});
+        console.log('use cfg', cfg);
+        next()
     }
 }
 
-module.exports = function (pattern, cfg, callback) {
-
-    if(arguments.length > 3) {
-
+FwRouter.prototype = {
+    use: function (path, fwRouter) {
+        this.router.use(path, fwRouter.router);
+        this.validate[path] = fwRouter.validate;
+        this.childRouter.push(fwRouter);
     }
-    var router = new Router();
-
-    return router(pattern, validate(cfg), callback);
-
 };
+
+METHODS.forEach(function (i) {
+    FwRouter.prototype[i] = function (path, cfg) {
+        var validate = generateValidate(cfg);
+        this.validate[path] = cfg;
+        this.router[i].apply(this.router, [path, validate].concat(Array.prototype.slice.call(arguments).slice(2)));
+    };
+});
+
+module.exports = () => new FwRouter();
